@@ -66,4 +66,41 @@ public class AuthController {
     public ResponseEntity<?> logout() {
         return ResponseEntity.ok("Logout successful");
     }
+
+    // ========== ADMIN AUTHENTICATION ENDPOINTS ==========
+
+    @PostMapping("/register-admin")
+    public ResponseEntity<?> registerAdmin(@Valid @RequestBody SignupRequest request) {
+        try {
+            // Register user with ROLE_ADMIN
+            User user = userService.registerUserAsAdmin(request);
+            String token = jwtUtil.generateToken(user.getEmail());
+            return ResponseEntity.ok(new TokenResponse(token, "Admin registered successfully"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/login-admin")
+    public ResponseEntity<?> loginAdmin(@Valid @RequestBody LoginRequest request) {
+        try {
+            User user = userService.getUserByEmail(request.getEmail())
+                    .orElseThrow(() -> new RuntimeException("Invalid credentials"));
+            
+            if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+                throw new RuntimeException("Invalid credentials");
+            }
+
+            // Check if user is admin
+            if (!user.getRole().equals("ROLE_ADMIN")) {
+                throw new RuntimeException("This account does not have admin privileges");
+            }
+
+            String token = jwtUtil.generateToken(user.getEmail());
+            LoginResponse response = new LoginResponse(token, user.getEmail(), user.getName(), user.getRole(), user.getId());
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
+    }
 }

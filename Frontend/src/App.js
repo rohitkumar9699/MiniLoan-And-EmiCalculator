@@ -8,6 +8,8 @@ import Calculator from './pages/Calculator';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ResetPassword from './pages/ResetPassword';
+import AdminLogin from './pages/AdminLogin';
+import AdminRegister from './pages/AdminRegister';
 import Dashboard from './pages/Dashboard';
 import ApplyLoan from './pages/ApplyLoan';
 import Profile from './pages/Profile';
@@ -45,6 +47,8 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/admin-login" element={<AdminLogin />} />
+            <Route path="/admin-register" element={<AdminRegister />} />
             <Route path="/contact" element={<Contact />} />
             
             {/* Protected User Routes */}

@@ -14,7 +14,10 @@ export const authAPI = {
   logout: () => {
     localStorage.removeItem('jwt_token');
     return Promise.resolve();
-  }
+  },
+  // Admin auth endpoints
+  registerAdmin: (data) => axios.post(`${API_URL}/auth/register-admin`, data),
+  loginAdmin: (data) => axios.post(`${API_URL}/auth/login-admin`, data),
 };
 
 export const userAPI = {

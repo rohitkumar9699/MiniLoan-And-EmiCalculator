@@ -90,6 +90,32 @@ public class UserService implements UserDetailsService {
         emailService.sendResetPasswordEmail(email, newPassword);
     }
 
+    public User registerUserAsAdmin(SignupRequest request) {
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new RuntimeException("Email already exists");
+        }
+        if (userRepository.existsByAadhaarNumber(request.getAadhaarNumber())) {
+            throw new RuntimeException("Aadhaar already exists");
+        }
+        if (userRepository.existsByPanNumber(request.getPanNumber())) {
+            throw new RuntimeException("PAN already exists");
+        }
+
+        User user = new User();
+        user.setName(request.getName());
+        user.setEmail(request.getEmail());
+        user.setOccupation(request.getOccupation());
+        user.setMonthlyIncome(request.getMonthlyIncome());
+        user.setAadhaarNumber(request.getAadhaarNumber());
+        user.setPanNumber(request.getPanNumber());
+        user.setRole("ROLE_ADMIN"); // Register as admin
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+
+        User savedUser = userRepository.save(user);
+        emailService.sendPasswordEmail(user.getEmail(), request.getPassword());
+        return savedUser;
+    }
+
     private String generateRandomPassword() {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%";
         StringBuilder password = new StringBuilder();
