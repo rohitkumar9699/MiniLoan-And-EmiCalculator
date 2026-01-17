@@ -11,8 +11,8 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchCurrentLoan = async () => {
       try {
-        const token = localStorage.getItem('miniloan_token');
-        const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:8080/api';
+        const token = localStorage.getItem('jwt_token');
+        const apiUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080/api';
         
         const response = await fetch(`${apiUrl}/loan/current`, {
           headers: { 'Authorization': `Bearer ${token}` }

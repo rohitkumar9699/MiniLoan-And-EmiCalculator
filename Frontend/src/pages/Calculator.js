@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import './Calculator.css';
 
 import axios from "axios";
-const backend_url = "http://localhost:8080/api/"; // variable trailing slash
+const backend_url = process.env.REACT_APP_API_BASE_URL || "http://localhost:8080/api";
 
 const Calculator = () => {
   const MIN_AMOUNT = 1000;

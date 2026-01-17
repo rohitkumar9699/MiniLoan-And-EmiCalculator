@@ -8,8 +8,8 @@ const Admin = () => {
 
   const fetchPendingLoans = async () => {
     try {
-      const token = localStorage.getItem('miniloan_token');
-      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:8080/api';
+      const token = localStorage.getItem('jwt_token');
+      const apiUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080/api';
       
       const response = await fetch(`${apiUrl}/admin/loans/pending`, {
         headers: { 'Authorization': `Bearer ${token}` }
@@ -34,8 +34,8 @@ const Admin = () => {
 
   const handleApprove = async (loanId) => {
     try {
-      const token = localStorage.getItem('miniloan_token');
-      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:8080/api';
+      const token = localStorage.getItem('jwt_token');
+      const apiUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080/api';
       
       const response = await fetch(`${apiUrl}/admin/loan/approve/${loanId}`, {
         method: 'POST',
@@ -55,8 +55,8 @@ const Admin = () => {
 
   const handleReject = async (loanId) => {
     try {
-      const token = localStorage.getItem('miniloan_token');
-      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:8080/api';
+      const token = localStorage.getItem('jwt_token');
+      const apiUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080/api';
       
       const response = await fetch(`${apiUrl}/admin/loan/reject/${loanId}`, {
         method: 'POST',
