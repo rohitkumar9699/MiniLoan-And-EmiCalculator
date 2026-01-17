@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { loanAPI } from '../services/api';
-import './Calculator.css';
+import './LoanHistory.css';
 
 function LoanHistory() {
   const [loans, setLoans] = useState([]);

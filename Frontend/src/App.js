@@ -18,10 +18,25 @@ import Footer from './components/Footer';
 import './App.css';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+
+  React.useEffect(() => {
+    const token = localStorage.getItem('jwt_token');
+    setIsLoggedIn(!!token);
+
+    const handleStorageChange = () => {
+      const updatedToken = localStorage.getItem('jwt_token');
+      setIsLoggedIn(!!updatedToken);
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
+
   return (
     <Router>
       <div className="app">
-        <Navbar />
+        <Navbar onAuthChange={(loggedIn) => setIsLoggedIn(loggedIn)} />
         <main className="main-content">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -52,7 +67,7 @@ function App() {
             } />
           </Routes>
         </main>
-        <Footer />
+        {!isLoggedIn && <Footer />}
       </div>
     </Router>
   );

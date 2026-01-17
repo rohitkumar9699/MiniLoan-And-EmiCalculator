@@ -1,0 +1,199 @@
+/* LoanHistory.css */
+.loan-history-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: calc(100vh - 200px);
+}
+
+.history-header {
+  margin-bottom: 2rem;
+  animation: fadeInDown 0.6s ease;
+}
+
+.history-header h1 {
+  font-size: 2.5rem;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.history-header p {
+  color: #64748b;
+  font-size: 1.1rem;
+}
+
+.loans-table {
+  width: 100%;
+  border-collapse: collapse;
+  animation: fadeInUp 0.6s ease 0.1s both;
+}
+
+.loans-table thead {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.loans-table th {
+  padding: 1rem;
+  text-align: left;
+  color: #1e293b;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
+.loans-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+  color: #475569;
+}
+
+.loans-table tbody tr {
+  transition: all 0.3s ease;
+}
+
+.loans-table tbody tr:hover {
+  background-color: rgba(37, 99, 235, 0.03);
+  transform: scale(1.01);
+}
+
+.loan-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.loan-card:hover {
+  box-shadow: 0 8px 16px rgba(37, 99, 235, 0.15);
+  transform: translateY(-2px);
+}
+
+.loan-amount {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #2563eb;
+}
+
+.loan-status {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.loan-status.approved {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+}
+
+.loan-status.pending {
+  background-color: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+}
+
+.loan-status.rejected {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.loan-status.completed {
+  background-color: rgba(37, 99, 235, 0.15);
+  color: #2563eb;
+}
+
+.empty-history {
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+.empty-history .empty-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+.empty-history h3 {
+  font-size: 1.8rem;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+}
+
+.empty-history p {
+  color: #64748b;
+  font-size: 1.05rem;
+}
+
+.error-message {
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 2px solid #ef4444;
+  color: #dc2626;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@media (max-width: 768px) {
+  .loan-history-container {
+    padding: 1rem;
+  }
+
+  .history-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .loans-table {
+    font-size: 0.85rem;
+  }
+
+  .loans-table th,
+  .loans-table td {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .loan-card {
+    padding: 1rem;
+  }
+}

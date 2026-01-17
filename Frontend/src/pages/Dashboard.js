@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../pages/Calculator.css';
+import './Dashboard.css';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -19,15 +19,26 @@ const Dashboard = () => {
         });
 
         if (response.ok) {
-          const data = await response.json();
-          setLoan(data);
-        } else if (response.status === 404) {
+          const text = await response.text();
+          if (text) {
+            try {
+              const data = JSON.parse(text);
+              setLoan(data);
+            } catch (parseError) {
+              console.error('JSON parse error:', parseError);
+              setLoan(null);
+            }
+          } else {
+            setLoan(null);
+          }
+        } else if (response.status === 404 || response.status === 400) {
           setLoan(null);
         } else {
           throw new Error('Failed to fetch loan');
         }
       } catch (err) {
-        setError(err.message);
+        console.error('Error fetching loan:', err);
+        setLoan(null);
       } finally {
         setLoading(false);
       }
@@ -36,24 +47,27 @@ const Dashboard = () => {
     fetchCurrentLoan();
   }, []);
 
-  if (loading) return <div className="container"><p>Loading...</p></div>;
+  if (loading) return <div className="dashboard-container"><p className="loading">Loading...</p></div>;
 
   return (
-    <div className="container">
-      <h2>Dashboard</h2>
+    <div className="dashboard-container">
+      <div className="dashboard-header">
+        <h1>Dashboard</h1>
+        <p>Manage your loans and track payment progress</p>
+      </div>
       
       {error && <div className="error">{error}</div>}
 
       {loan ? (
-        <div className="loan-details">
-          <h3>Current Loan Status</h3>
+        <div className="loan-status-card">
+          <h2>Current Loan Status</h2>
           <div className="details-grid">
             <div className="detail">
               <label>Loan Amount:</label>
-              <p>₹{loan.loanAmount?.toLocaleString()}</p>
+              <p>₹{loan.loanAmount?.toLocaleString('en-IN')}</p>
             </div>
             <div className="detail">
-              <label>EMI:</label>
+              <label>EMI (Monthly):</label>
               <p>₹{loan.emi?.toFixed(2)}</p>
             </div>
             <div className="detail">
@@ -66,7 +80,7 @@ const Dashboard = () => {
             </div>
             <div className="detail">
               <label>Total Payable:</label>
-              <p>₹{loan.totalPayable?.toFixed(2)}</p>
+              <p>₹{loan.totalPayable?.toLocaleString('en-IN')}</p>
             </div>
             <div className="detail">
               <label>Paid Amount:</label>
@@ -78,21 +92,25 @@ const Dashboard = () => {
             </div>
             <div className="detail">
               <label>Status:</label>
-              <p className={`status ${loan.status?.toLowerCase()}`}>{loan.status}</p>
+              <p><span className={`status ${loan.status?.toLowerCase()}`}>{loan.status}</span></p>
             </div>
           </div>
 
           <div className="action-buttons">
-            <button onClick={() => navigate('/history')} className="btn-secondary">View History</button>
+            <button onClick={() => navigate('/history')} className="btn-secondary">📜 View History</button>
             {loan.status === 'APPROVED' && (
-              <button onClick={() => navigate('/loan/pay')} className="btn-primary">Pay EMI</button>
+              <button onClick={() => navigate('/loan/pay')} className="btn-primary">💳 Pay EMI</button>
             )}
           </div>
         </div>
       ) : (
-        <div className="no-loan">
-          <p>You have no active loans.</p>
-          <button onClick={() => navigate('/apply')} className="btn-primary">Apply for Loan</button>
+        <div className="no-loan-container">
+          <div className="empty-state">
+            <div className="empty-icon">📋</div>
+            <h3>No Active Loans</h3>
+            <p>You currently don't have any active loans. Start your loan application now!</p>
+            <button onClick={() => navigate('/apply')} className="btn-primary">Apply for Loan</button>
+          </div>
         </div>
       )}
     </div>

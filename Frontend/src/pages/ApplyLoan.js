@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { loanAPI, calculateEMI, getInterestRate } from '../services/api';
 import { useNavigate } from 'react-router-dom';
-import './Calculator.css';
+import './ApplyLoan.css';
 
 function ApplyLoan() {
   const navigate = useNavigate();
