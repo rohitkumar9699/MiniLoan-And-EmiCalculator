@@ -30,7 +30,7 @@ public class EmiResponse {
         return months;
     }
 
-    public double getmonthlyRates() {
+    public double getMonthlyRates() {
         return monthlyRates;
     }
 

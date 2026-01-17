@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/emi")
-@CrossOrigin(origins = "*") // adjust as per your frontend origin
+@CrossOrigin(origins = "${app.cors.allowed-origins:http://localhost:3000}")
 public class EmiController {
 
     private final EmiService emiService;

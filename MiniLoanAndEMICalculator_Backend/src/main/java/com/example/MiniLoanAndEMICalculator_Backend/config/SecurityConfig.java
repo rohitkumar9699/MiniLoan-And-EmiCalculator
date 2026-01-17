@@ -44,10 +44,11 @@ public class SecurityConfig {
                                            JwtRequestFilter jwtRequestFilter) throws Exception {
 
         http.csrf(csrf -> csrf.disable())
-                .cors(cors -> cors.and())
+                .cors(cors -> {})
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/emi/**").permitAll()
+                        .requestMatchers("OPTIONS", "/**").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/user/**").hasRole("USER")
                         .requestMatchers("/api/loan/**").hasRole("USER")

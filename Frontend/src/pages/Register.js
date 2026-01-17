@@ -96,7 +96,7 @@ const Register = () => {
           panNumber: formData.panNumber
         };
 
-        const response = await authAPI.register(registerData);
+        await authAPI.register(registerData);
         
         setSuccessMessage('Registration successful! Your temporary password has been sent to your email. Redirecting to login...');
         
@@ -277,114 +277,6 @@ const Register = () => {
         <div className="auth-footer">
           <p>Already have an account? <Link to="/login">Sign in here</Link></p>
         </div>
-      </div>
-    </div>
-  );
-};
-
-export default Register;
-          <div className="input-group">
-            <label className="input-label">Full Name</label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className={`input-field ${errors.name ? 'error' : ''}`}
-              placeholder="Enter your full name"
-            />
-            {errors.name && <div className="error-message">⚠️ {errors.name}</div>}
-          </div>
-
-          <div className="input-group">
-            <label className="input-label">Email Address</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className={`input-field ${errors.email ? 'error' : ''}`}
-              placeholder="Enter your email"
-            />
-            {errors.email && <div className="error-message">⚠️ {errors.email}</div>}
-          </div>
-
-          <div className="input-group">
-            <label className="input-label">Phone Number</label>
-            <input
-              type="tel"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              className={`input-field ${errors.phone ? 'error' : ''}`}
-              placeholder="Enter your 10-digit phone number"
-            />
-            {errors.phone && <div className="error-message">⚠️ {errors.phone}</div>}
-          </div>
-
-          <div className="input-group">
-            <label className="input-label">Password</label>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              className={`input-field ${errors.password ? 'error' : ''}`}
-              placeholder="Create a strong password"
-            />
-            {errors.password && <div className="error-message">⚠️ {errors.password}</div>}
-          </div>
-
-          <div className="input-group">
-            <label className="input-label">Confirm Password</label>
-            <input
-              type="password"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              className={`input-field ${errors.confirmPassword ? 'error' : ''}`}
-              placeholder="Confirm your password"
-            />
-            {errors.confirmPassword && <div className="error-message">⚠️ {errors.confirmPassword}</div>}
-          </div>
-
-          <div className="input-group">
-            <label className={`checkbox-label ${errors.acceptTerms ? 'error' : ''}`}>
-              <input
-                type="checkbox"
-                name="acceptTerms"
-                checked={formData.acceptTerms}
-                onChange={handleChange}
-              />
-              <span>I agree to the <Link to="/terms">Terms and Conditions</Link> and <Link to="/privacy">Privacy Policy</Link></span>
-            </label>
-            {errors.acceptTerms && <div className="error-message">⚠️ {errors.acceptTerms}</div>}
-          </div>
-
-          <button 
-            type="submit" 
-            className="btn btn-primary auth-btn"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? (
-              <>
-                <div className="spinner-small"></div>
-                Creating Account...
-              </>
-            ) : (
-              'Create Account'
-            )}
-          </button>
-
-          <div className="auth-footer">
-            <p>
-              Already have an account?{' '}
-              <Link to="/login" className="auth-link">
-                Sign in here
-              </Link>
-            </p>
-          </div>
-        </form>
       </div>
     </div>
   );

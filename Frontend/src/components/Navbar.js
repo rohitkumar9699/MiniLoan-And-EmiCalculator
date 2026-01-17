@@ -40,7 +40,7 @@ const Navbar = () => {
             <button onClick={() => navigate('/dashboard')}>Dashboard</button>
             {userRole === 'ROLE_USER' && (
               <>
-                <button onClick={() => navigate('/apply-loan')}>Apply Loan</button>
+                <button onClick={() => navigate('/apply')}>Apply Loan</button>
                 <button onClick={() => navigate('/history')}>History</button>
                 <button onClick={() => navigate('/profile')}>Profile</button>
               </>

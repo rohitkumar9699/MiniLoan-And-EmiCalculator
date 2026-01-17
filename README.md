@@ -1,5 +1,7 @@
 # Mini Loan & EMI Calculator
 
+> **Status**: ✅ Fully Functional - All Frontend & Backend Issues Fixed
+
 A complete full-stack application for managing mini loans and calculating EMIs (Equated Monthly Installments) with user authentication, admin approval workflow, and payment tracking.
 
 ## 🚀 Quick Start

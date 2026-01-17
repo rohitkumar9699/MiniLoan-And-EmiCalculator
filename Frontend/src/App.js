@@ -36,7 +36,7 @@ function App() {
             <Route path="/dashboard" element={
               <ProtectedRoute requiredRole="ROLE_USER"><Dashboard /></ProtectedRoute>
             } />
-            <Route path="/apply-loan" element={
+            <Route path="/apply" element={
               <ProtectedRoute requiredRole="ROLE_USER"><ApplyLoan /></ProtectedRoute>
             } />
             <Route path="/profile" element={

@@ -2,14 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import './Calculator.css';
 
-import axios from "axios";
-const backend_url = process.env.REACT_APP_API_BASE_URL || "http://localhost:8080/api";
-
 const Calculator = () => {
   const MIN_AMOUNT = 1000;
   const MAX_AMOUNT = 50000;
   const MIN_MONTHS = 1;
   const MAX_MONTHS = 24;
+  const backend_url = process.env.REACT_APP_API_BASE_URL || "http://localhost:8080/api";
 
   const [loanAmount, setLoanAmount] = useState(25000);
   const [durationMonths, setDurationMonths] = useState(12);
@@ -32,31 +30,34 @@ const Calculator = () => {
   };
 
   // Calculate EMI
-const calculateEMI = () => {
-  axios
-    .post(
-      `${backend_url}emi/calculate`,
-      {
+const calculateEMI = async () => {
+  try {
+    setIsCalculating(true);
+    const response = await fetch(`${backend_url}/emi/calculate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
         amount: loanAmount,
         months: durationMonths,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
-    .then((response) => {
-      const data = response.data;
+      }),
+    });
 
+    if (response.ok) {
+      const data = await response.json();
       setEmi(data.monthlyEmi);
       setTotalInterest(data.totalInterest);
       setTotalAmount(data.totalPayment);
       setinterestRate(data.monthlyRates);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+    } else {
+      console.error('Error calculating EMI:', response.statusText);
+    }
+  } catch (err) {
+    console.error('Error calculating EMI:', err);
+  } finally {
+    setIsCalculating(false);
+  }
 };
 
 
@@ -94,11 +95,7 @@ const calculateEMI = () => {
   // Recalculate on input changes
   useEffect(() => {
     if (validateInputs()) {
-      setIsCalculating(true);
-      setTimeout(() => {
-        calculateEMI();
-        setIsCalculating(false);
-      }, 1000);
+      calculateEMI();
     }
   }, [loanAmount, durationMonths]);
 

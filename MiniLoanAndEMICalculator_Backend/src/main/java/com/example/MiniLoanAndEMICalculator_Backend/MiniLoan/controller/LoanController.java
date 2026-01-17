@@ -5,6 +5,7 @@ import com.example.MiniLoanAndEMICalculator_Backend.MiniLoan.entity.Loan;
 import com.example.MiniLoanAndEMICalculator_Backend.MiniLoan.service.LoanService;
 import com.example.MiniLoanAndEMICalculator_Backend.user.service.UserService;
 import com.example.MiniLoanAndEMICalculator_Backend.security.JwtUtil;
+import com.example.MiniLoanAndEMICalculator_Backend.util.TokenExtractorUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,8 @@ public class LoanController {
     @PostMapping("/apply")
     public ResponseEntity<?> applyLoan(@RequestHeader("Authorization") String token, @Valid @RequestBody LoanRequest request) {
         try {
-            String email = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+            String extractedToken = TokenExtractorUtil.extractToken(token);
+            String email = jwtUtil.extractUsername(extractedToken);
             Long userId = userService.getUserByEmail(email).orElseThrow(() -> new RuntimeException("User not found")).getId();
             Loan loan = loanService.applyLoan(userId, request.getLoanAmount(), request.getTenure());
             return ResponseEntity.ok(loan);
@@ -39,19 +41,25 @@ public class LoanController {
     @GetMapping("/current")
     public ResponseEntity<?> getCurrentLoan(@RequestHeader("Authorization") String token) {
         try {
-            String email = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+            String extractedToken = TokenExtractorUtil.extractToken(token);
+            String email = jwtUtil.extractUsername(extractedToken);
             Long userId = userService.getUserByEmail(email).orElseThrow(() -> new RuntimeException("User not found")).getId();
-            Loan loan = loanService.getCurrentLoan(userId);
-            return ResponseEntity.ok(loan);
+            try {
+                Loan loan = loanService.getCurrentLoan(userId);
+                return ResponseEntity.ok(loan);
+            } catch (Exception e) {
+                return ResponseEntity.ok(null);
+            }
         } catch (Exception e) {
-            return ResponseEntity.ok("{\"message\": \"No active loan\"}");
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
     }
 
     @GetMapping("/history")
     public ResponseEntity<?> getLoanHistory(@RequestHeader("Authorization") String token) {
         try {
-            String email = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+            String extractedToken = TokenExtractorUtil.extractToken(token);
+            String email = jwtUtil.extractUsername(extractedToken);
             Long userId = userService.getUserByEmail(email).orElseThrow(() -> new RuntimeException("User not found")).getId();
             List<Loan> loans = loanService.getUserLoanHistory(userId);
             return ResponseEntity.ok(loans);
@@ -63,7 +71,8 @@ public class LoanController {
     @PostMapping("/pay")
     public ResponseEntity<?> payEmi(@RequestHeader("Authorization") String token, @Valid @RequestBody PaymentRequest request) {
         try {
-            String email = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+            String extractedToken = TokenExtractorUtil.extractToken(token);
+            String email = jwtUtil.extractUsername(extractedToken);
             Long userId = userService.getUserByEmail(email).orElseThrow(() -> new RuntimeException("User not found")).getId();
             Loan loan = loanService.getCurrentLoan(userId);
             loanService.payEmi(loan.getId(), request.getAmount());

@@ -26,8 +26,9 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody SignupRequest request) {
         try {
-            userService.registerUser(request);
-            return ResponseEntity.ok("User registered successfully. Check your email for password.");
+            User user = userService.registerUser(request);
+            String token = jwtUtil.generateToken(user.getEmail());
+            return ResponseEntity.ok(new TokenResponse(token, "User registered successfully"));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }

@@ -4,6 +4,7 @@ import com.example.MiniLoanAndEMICalculator_Backend.user.dto.*;
 import com.example.MiniLoanAndEMICalculator_Backend.user.entity.User;
 import com.example.MiniLoanAndEMICalculator_Backend.user.service.UserService;
 import com.example.MiniLoanAndEMICalculator_Backend.security.JwtUtil;
+import com.example.MiniLoanAndEMICalculator_Backend.util.TokenExtractorUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,8 @@ public class UserController {
     @GetMapping("/profile")
     public ResponseEntity<?> getProfile(@RequestHeader("Authorization") String token) {
         try {
-            String email = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+            String extractedToken = TokenExtractorUtil.extractToken(token);
+            String email = jwtUtil.extractUsername(extractedToken);
             User user = userService.getUserByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
             return ResponseEntity.ok(user);
         } catch (Exception e) {
@@ -32,7 +34,8 @@ public class UserController {
     @PutMapping("/update-profile")
     public ResponseEntity<?> updateProfile(@RequestHeader("Authorization") String token, @RequestBody UpdateProfileRequest request) {
         try {
-            String email = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+            String extractedToken = TokenExtractorUtil.extractToken(token);
+            String email = jwtUtil.extractUsername(extractedToken);
             User user = userService.getUserByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
             userService.updateProfile(user.getId(), request);
             return ResponseEntity.ok("Profile updated successfully");
@@ -44,7 +47,8 @@ public class UserController {
     @PutMapping("/change-password")
     public ResponseEntity<?> changePassword(@RequestHeader("Authorization") String token, @RequestBody ChangePasswordRequest request) {
         try {
-            String email = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+            String extractedToken = TokenExtractorUtil.extractToken(token);
+            String email = jwtUtil.extractUsername(extractedToken);
             User user = userService.getUserByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
             userService.changePassword(user.getId(), request);
             return ResponseEntity.ok("Password changed successfully");

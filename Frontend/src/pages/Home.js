@@ -42,7 +42,7 @@ const Home = () => {
             <Link to="/calculate" className="btn btn-primary">
               Calculate EMI Now
             </Link>
-            <Link to="/contact" className="btn btn-outline">
+            <Link to="/register" className="btn btn-outline">
               Apply for Loan
             </Link>
           </div>

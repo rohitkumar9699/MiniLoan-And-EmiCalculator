@@ -1,5 +1,7 @@
 package com.example.MiniLoanAndEMICalculator_Backend.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -7,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EmailService {
+    private static final Logger logger = LoggerFactory.getLogger(EmailService.class);
+    
     @Autowired
     private JavaMailSender mailSender;
 
@@ -18,8 +22,10 @@ public class EmailService {
             message.setText(body);
             message.setFrom("noreply@miniloan.com");
             mailSender.send(message);
+            logger.info("Email sent successfully to: {}", to);
         } catch (Exception e) {
-            System.out.println("Error sending email: " + e.getMessage());
+            logger.error("Error sending email to {}: {}", to, e.getMessage());
+            // Email failure should not block user registration/operations
         }
     }
 

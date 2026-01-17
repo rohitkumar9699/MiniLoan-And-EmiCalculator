@@ -30,10 +30,21 @@ public class EmiService {
         double monthlyRate = monthlyRates / 100.0;
 
         // 3️⃣ EMI Formula: P * r * (1+r)^n / ((1+r)^n - 1)
-        double totalInterest =  amount * months * monthlyRate;
-        double totalPayment = amount + totalInterest;
-
-        double emi = totalPayment/ months;
+        double emi;
+        double totalPayment;
+        double totalInterest;
+        
+        if (monthlyRate == 0) {
+            emi = amount / months;
+            totalPayment = amount;
+            totalInterest = 0;
+        } else {
+            double numerator = monthlyRate * Math.pow(1 + monthlyRate, months);
+            double denominator = Math.pow(1 + monthlyRate, months) - 1;
+            emi = amount * (numerator / denominator);
+            totalPayment = emi * months;
+            totalInterest = totalPayment - amount;
+        }
 
 
         // Round to 2 decimal places
