@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets;
 @Component
 public class JwtUtil {
 
-    @Value("${app.jwt.secret:rohitkumarqwertyuiopqwertyuiopqwertyuiop123456789}")
+    @Value("${app.jwt.secret:ThisIsAVerySecureJWTSecretKeyThatIsLongEnoughForHS512AlgorithmRequirement123456}")
     private String secret;
 
     @Value("${app.jwt.expiration:86400000}")

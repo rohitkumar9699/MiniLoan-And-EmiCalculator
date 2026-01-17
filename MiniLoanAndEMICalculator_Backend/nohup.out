@@ -1,0 +1,318 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 21939 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] 
+[INFO] ------------< com.example:MiniLoanAndEMICalculator_Backend >------------
+[INFO] Building MiniLoanAndEMICalculator_Backend 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots-c1d4c55f9308e5ac18a4069bed41dca64d85c515.txt)
+[WARNING] Could not transfer metadata /.meta/prefixes.txt from/to plexus.snapshots-9dedea94451709299d055319c137abeb30aacdef (https://oss.sonatype.org/content/repositories/plexus-snapshots): HTTP Status: 503
+[INFO] 
+[INFO] >>> spring-boot:3.5.8:run (default-cli) > test-compile @ MiniLoanAndEMICalculator_Backend >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ MiniLoanAndEMICalculator_Backend ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 0 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ MiniLoanAndEMICalculator_Backend ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ MiniLoanAndEMICalculator_Backend ---
+[INFO] skip non existing resourceDirectory /workspaces/MiniLoan-And-EmiCalculator/MiniLoanAndEMICalculator_Backend/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ MiniLoanAndEMICalculator_Backend ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< spring-boot:3.5.8:run (default-cli) < test-compile @ MiniLoanAndEMICalculator_Backend <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.5.8:run (default-cli) @ MiniLoanAndEMICalculator_Backend ---
+[INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot-40669f8efefaadb4c1705a2585cefc8851f735ac.txt)
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.8)
+
+2026-01-17T18:40:12.437Z  INFO 48665 --- [MiniLoanAndEMICalculator_Backend] [           main] niLoanAndEmiCalculatorBackendApplication : Starting MiniLoanAndEmiCalculatorBackendApplication using Java 17.0.17 with PID 48665 (/workspaces/MiniLoan-And-EmiCalculator/MiniLoanAndEMICalculator_Backend/target/classes started by codespace in /workspaces/MiniLoan-And-EmiCalculator/MiniLoanAndEMICalculator_Backend)
+2026-01-17T18:40:12.441Z  INFO 48665 --- [MiniLoanAndEMICalculator_Backend] [           main] niLoanAndEmiCalculatorBackendApplication : No active profile set, falling back to 1 default profile: "default"
+2026-01-17T18:40:13.210Z  INFO 48665 --- [MiniLoanAndEMICalculator_Backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-17T18:40:13.262Z  INFO 48665 --- [MiniLoanAndEMICalculator_Backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 45 ms. Found 3 JPA repository interfaces.
+2026-01-17T18:40:13.750Z  INFO 48665 --- [MiniLoanAndEMICalculator_Backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-01-17T18:40:13.760Z  INFO 48665 --- [MiniLoanAndEMICalculator_Backend] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-01-17T18:40:13.761Z  INFO 48665 --- [MiniLoanAndEMICalculator_Backend] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.49]
+2026-01-17T18:40:13.796Z  INFO 48665 --- [MiniLoanAndEMICalculator_Backend] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-01-17T18:40:13.797Z  INFO 48665 --- [MiniLoanAndEMICalculator_Backend] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1275 ms
+2026-01-17T18:40:13.905Z  INFO 48665 --- [MiniLoanAndEMICalculator_Backend] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-17T18:40:13.936Z  INFO 48665 --- [MiniLoanAndEMICalculator_Backend] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.36.Final
+2026-01-17T18:40:13.958Z  INFO 48665 --- [MiniLoanAndEMICalculator_Backend] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-01-17T18:40:14.207Z  INFO 48665 --- [MiniLoanAndEMICalculator_Backend] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-17T18:40:14.237Z  INFO 48665 --- [MiniLoanAndEMICalculator_Backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-01-17T18:40:14.358Z  INFO 48665 --- [MiniLoanAndEMICalculator_Backend] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:miniloandb user=SA
+2026-01-17T18:40:14.359Z  INFO 48665 --- [MiniLoanAndEMICalculator_Backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-01-17T18:40:14.377Z  WARN 48665 --- [MiniLoanAndEMICalculator_Backend] [           main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-01-17T18:40:14.393Z  INFO 48665 --- [MiniLoanAndEMICalculator_Backend] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-01-17T18:40:15.089Z  INFO 48665 --- [MiniLoanAndEMICalculator_Backend] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-17T18:40:15.131Z  INFO 48665 --- [MiniLoanAndEMICalculator_Backend] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-17T18:40:15.610Z  WARN 48665 --- [MiniLoanAndEMICalculator_Backend] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-17T18:40:15.824Z  INFO 48665 --- [MiniLoanAndEMICalculator_Backend] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userService
+2026-01-17T18:40:15.865Z  WARN 48665 --- [MiniLoanAndEMICalculator_Backend] [           main] thorizationManagerRequestMatcherRegistry : One of the patterns in [OPTIONS, /**] is missing a leading slash. This is discouraged; please include the leading slash in all your request matcher patterns. In future versions of Spring Security, leaving out the leading slash will result in an exception.
+2026-01-17T18:40:16.050Z  INFO 48665 --- [MiniLoanAndEMICalculator_Backend] [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:miniloandb'
+2026-01-17T18:40:16.137Z  WARN 48665 --- [MiniLoanAndEMICalculator_Backend] [           main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2026-01-17T18:40:16.141Z  INFO 48665 --- [MiniLoanAndEMICalculator_Backend] [           main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-17T18:40:16.152Z  INFO 48665 --- [MiniLoanAndEMICalculator_Backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-01-17T18:40:16.156Z  INFO 48665 --- [MiniLoanAndEMICalculator_Backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-01-17T18:40:16.196Z  INFO 48665 --- [MiniLoanAndEMICalculator_Backend] [           main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-01-17T18:40:16.209Z ERROR 48665 --- [MiniLoanAndEMICalculator_Backend] [           main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  9.089 s
+[INFO] Finished at: 2026-01-17T18:40:16Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:3.5.8:run (default-cli) on project MiniLoanAndEMICalculator_Backend: Process terminated with exit code: 1 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the '-e' switch
+[ERROR] Re-run Maven using the '-X' switch to enable verbose output
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+[INFO] Scanning for projects...
+[INFO] Loaded 21939 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] 
+[INFO] ------------< com.example:MiniLoanAndEMICalculator_Backend >------------
+[INFO] Building MiniLoanAndEMICalculator_Backend 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots-c1d4c55f9308e5ac18a4069bed41dca64d85c515.txt)
+[WARNING] Could not transfer metadata /.meta/prefixes.txt from/to plexus.snapshots-9dedea94451709299d055319c137abeb30aacdef (https://oss.sonatype.org/content/repositories/plexus-snapshots): HTTP Status: 503
+[INFO] 
+[INFO] >>> spring-boot:3.5.8:run (default-cli) > test-compile @ MiniLoanAndEMICalculator_Backend >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ MiniLoanAndEMICalculator_Backend ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 0 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ MiniLoanAndEMICalculator_Backend ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ MiniLoanAndEMICalculator_Backend ---
+[INFO] skip non existing resourceDirectory /workspaces/MiniLoan-And-EmiCalculator/MiniLoanAndEMICalculator_Backend/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ MiniLoanAndEMICalculator_Backend ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< spring-boot:3.5.8:run (default-cli) < test-compile @ MiniLoanAndEMICalculator_Backend <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.5.8:run (default-cli) @ MiniLoanAndEMICalculator_Backend ---
+[INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot-40669f8efefaadb4c1705a2585cefc8851f735ac.txt)
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.8)
+
+2026-01-17T18:40:46.826Z  INFO 49168 --- [MiniLoanAndEMICalculator_Backend] [           main] niLoanAndEmiCalculatorBackendApplication : Starting MiniLoanAndEmiCalculatorBackendApplication using Java 17.0.17 with PID 49168 (/workspaces/MiniLoan-And-EmiCalculator/MiniLoanAndEMICalculator_Backend/target/classes started by codespace in /workspaces/MiniLoan-And-EmiCalculator/MiniLoanAndEMICalculator_Backend)
+2026-01-17T18:40:46.831Z  INFO 49168 --- [MiniLoanAndEMICalculator_Backend] [           main] niLoanAndEmiCalculatorBackendApplication : No active profile set, falling back to 1 default profile: "default"
+2026-01-17T18:40:47.641Z  INFO 49168 --- [MiniLoanAndEMICalculator_Backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-17T18:40:47.694Z  INFO 49168 --- [MiniLoanAndEMICalculator_Backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 44 ms. Found 3 JPA repository interfaces.
+2026-01-17T18:40:48.180Z  INFO 49168 --- [MiniLoanAndEMICalculator_Backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-01-17T18:40:48.189Z  INFO 49168 --- [MiniLoanAndEMICalculator_Backend] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-01-17T18:40:48.189Z  INFO 49168 --- [MiniLoanAndEMICalculator_Backend] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.49]
+2026-01-17T18:40:48.223Z  INFO 49168 --- [MiniLoanAndEMICalculator_Backend] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-01-17T18:40:48.224Z  INFO 49168 --- [MiniLoanAndEMICalculator_Backend] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1333 ms
+2026-01-17T18:40:48.325Z  INFO 49168 --- [MiniLoanAndEMICalculator_Backend] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-17T18:40:48.364Z  INFO 49168 --- [MiniLoanAndEMICalculator_Backend] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.36.Final
+2026-01-17T18:40:48.384Z  INFO 49168 --- [MiniLoanAndEMICalculator_Backend] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-01-17T18:40:48.569Z  INFO 49168 --- [MiniLoanAndEMICalculator_Backend] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-17T18:40:48.603Z  INFO 49168 --- [MiniLoanAndEMICalculator_Backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-01-17T18:40:48.721Z  INFO 49168 --- [MiniLoanAndEMICalculator_Backend] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:miniloandb user=SA
+2026-01-17T18:40:48.723Z  INFO 49168 --- [MiniLoanAndEMICalculator_Backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-01-17T18:40:48.740Z  WARN 49168 --- [MiniLoanAndEMICalculator_Backend] [           main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-01-17T18:40:48.755Z  INFO 49168 --- [MiniLoanAndEMICalculator_Backend] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-01-17T18:40:49.394Z  INFO 49168 --- [MiniLoanAndEMICalculator_Backend] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-17T18:40:49.424Z  INFO 49168 --- [MiniLoanAndEMICalculator_Backend] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-17T18:40:49.809Z  WARN 49168 --- [MiniLoanAndEMICalculator_Backend] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-17T18:40:50.034Z  INFO 49168 --- [MiniLoanAndEMICalculator_Backend] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userService
+2026-01-17T18:40:50.085Z  WARN 49168 --- [MiniLoanAndEMICalculator_Backend] [           main] thorizationManagerRequestMatcherRegistry : One of the patterns in [OPTIONS, /**] is missing a leading slash. This is discouraged; please include the leading slash in all your request matcher patterns. In future versions of Spring Security, leaving out the leading slash will result in an exception.
+2026-01-17T18:40:50.260Z  INFO 49168 --- [MiniLoanAndEMICalculator_Backend] [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:miniloandb'
+2026-01-17T18:40:50.315Z  WARN 49168 --- [MiniLoanAndEMICalculator_Backend] [           main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2026-01-17T18:40:50.317Z  INFO 49168 --- [MiniLoanAndEMICalculator_Backend] [           main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-17T18:40:50.323Z  INFO 49168 --- [MiniLoanAndEMICalculator_Backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-01-17T18:40:50.325Z  INFO 49168 --- [MiniLoanAndEMICalculator_Backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-01-17T18:40:50.335Z  INFO 49168 --- [MiniLoanAndEMICalculator_Backend] [           main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-01-17T18:40:50.346Z ERROR 49168 --- [MiniLoanAndEMICalculator_Backend] [           main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  8.785 s
+[INFO] Finished at: 2026-01-17T18:40:50Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:3.5.8:run (default-cli) on project MiniLoanAndEMICalculator_Backend: Process terminated with exit code: 1 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the '-e' switch
+[ERROR] Re-run Maven using the '-X' switch to enable verbose output
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+[INFO] Scanning for projects...
+[INFO] Loaded 21939 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] 
+[INFO] ------------< com.example:MiniLoanAndEMICalculator_Backend >------------
+[INFO] Building MiniLoanAndEMICalculator_Backend 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots-c1d4c55f9308e5ac18a4069bed41dca64d85c515.txt)
+[WARNING] Could not transfer metadata /.meta/prefixes.txt from/to plexus.snapshots-9dedea94451709299d055319c137abeb30aacdef (https://oss.sonatype.org/content/repositories/plexus-snapshots): HTTP Status: 503
+[INFO] 
+[INFO] >>> spring-boot:3.5.8:run (default-cli) > test-compile @ MiniLoanAndEMICalculator_Backend >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ MiniLoanAndEMICalculator_Backend ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 0 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ MiniLoanAndEMICalculator_Backend ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ MiniLoanAndEMICalculator_Backend ---
+[INFO] skip non existing resourceDirectory /workspaces/MiniLoan-And-EmiCalculator/MiniLoanAndEMICalculator_Backend/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ MiniLoanAndEMICalculator_Backend ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< spring-boot:3.5.8:run (default-cli) < test-compile @ MiniLoanAndEMICalculator_Backend <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.5.8:run (default-cli) @ MiniLoanAndEMICalculator_Backend ---
+[INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot-40669f8efefaadb4c1705a2585cefc8851f735ac.txt)
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.8)
+
+2026-01-17T18:45:07.472Z  INFO 52332 --- [MiniLoanAndEMICalculator_Backend] [           main] niLoanAndEmiCalculatorBackendApplication : Starting MiniLoanAndEmiCalculatorBackendApplication using Java 17.0.17 with PID 52332 (/workspaces/MiniLoan-And-EmiCalculator/MiniLoanAndEMICalculator_Backend/target/classes started by codespace in /workspaces/MiniLoan-And-EmiCalculator/MiniLoanAndEMICalculator_Backend)
+2026-01-17T18:45:07.479Z  INFO 52332 --- [MiniLoanAndEMICalculator_Backend] [           main] niLoanAndEmiCalculatorBackendApplication : No active profile set, falling back to 1 default profile: "default"
+2026-01-17T18:45:08.206Z  INFO 52332 --- [MiniLoanAndEMICalculator_Backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-17T18:45:08.264Z  INFO 52332 --- [MiniLoanAndEMICalculator_Backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 48 ms. Found 3 JPA repository interfaces.
+2026-01-17T18:45:08.760Z  INFO 52332 --- [MiniLoanAndEMICalculator_Backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-01-17T18:45:08.769Z  INFO 52332 --- [MiniLoanAndEMICalculator_Backend] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-01-17T18:45:08.769Z  INFO 52332 --- [MiniLoanAndEMICalculator_Backend] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.49]
+2026-01-17T18:45:08.802Z  INFO 52332 --- [MiniLoanAndEMICalculator_Backend] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-01-17T18:45:08.803Z  INFO 52332 --- [MiniLoanAndEMICalculator_Backend] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1271 ms
+2026-01-17T18:45:08.910Z  INFO 52332 --- [MiniLoanAndEMICalculator_Backend] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-17T18:45:08.941Z  INFO 52332 --- [MiniLoanAndEMICalculator_Backend] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.36.Final
+2026-01-17T18:45:08.961Z  INFO 52332 --- [MiniLoanAndEMICalculator_Backend] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-01-17T18:45:09.148Z  INFO 52332 --- [MiniLoanAndEMICalculator_Backend] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-17T18:45:09.175Z  INFO 52332 --- [MiniLoanAndEMICalculator_Backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-01-17T18:45:09.311Z  INFO 52332 --- [MiniLoanAndEMICalculator_Backend] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:miniloandb user=SA
+2026-01-17T18:45:09.313Z  INFO 52332 --- [MiniLoanAndEMICalculator_Backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-01-17T18:45:09.328Z  WARN 52332 --- [MiniLoanAndEMICalculator_Backend] [           main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-01-17T18:45:09.344Z  INFO 52332 --- [MiniLoanAndEMICalculator_Backend] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-01-17T18:45:10.115Z  INFO 52332 --- [MiniLoanAndEMICalculator_Backend] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-17T18:45:10.145Z  INFO 52332 --- [MiniLoanAndEMICalculator_Backend] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-17T18:45:10.572Z  WARN 52332 --- [MiniLoanAndEMICalculator_Backend] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-17T18:45:10.776Z  INFO 52332 --- [MiniLoanAndEMICalculator_Backend] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userService
+2026-01-17T18:45:10.814Z  WARN 52332 --- [MiniLoanAndEMICalculator_Backend] [           main] thorizationManagerRequestMatcherRegistry : One of the patterns in [OPTIONS, /**] is missing a leading slash. This is discouraged; please include the leading slash in all your request matcher patterns. In future versions of Spring Security, leaving out the leading slash will result in an exception.
+2026-01-17T18:45:11.028Z  INFO 52332 --- [MiniLoanAndEMICalculator_Backend] [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:miniloandb'
+2026-01-17T18:45:11.137Z  WARN 52332 --- [MiniLoanAndEMICalculator_Backend] [           main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2026-01-17T18:45:11.142Z  INFO 52332 --- [MiniLoanAndEMICalculator_Backend] [           main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-17T18:45:11.150Z  INFO 52332 --- [MiniLoanAndEMICalculator_Backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-01-17T18:45:11.174Z  INFO 52332 --- [MiniLoanAndEMICalculator_Backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-01-17T18:45:11.195Z  INFO 52332 --- [MiniLoanAndEMICalculator_Backend] [           main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-01-17T18:45:11.208Z ERROR 52332 --- [MiniLoanAndEMICalculator_Backend] [           main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  8.749 s
+[INFO] Finished at: 2026-01-17T18:45:11Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:3.5.8:run (default-cli) on project MiniLoanAndEMICalculator_Backend: Process terminated with exit code: 1 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the '-e' switch
+[ERROR] Re-run Maven using the '-X' switch to enable verbose output
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
