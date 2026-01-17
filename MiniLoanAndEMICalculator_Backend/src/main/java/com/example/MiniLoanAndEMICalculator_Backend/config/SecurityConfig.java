@@ -44,15 +44,18 @@ public class SecurityConfig {
                                            JwtRequestFilter jwtRequestFilter) throws Exception {
 
         http.csrf(csrf -> csrf.disable())
+                .cors(cors -> cors.and())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/emi/**").permitAll()
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/user/**").hasRole("USER")
+                        .requestMatchers("/api/loan/**").hasRole("USER")
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(jwtAuthenticationEntryPoint))
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-        // JwtRequestFilter injected here, not in constructor
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

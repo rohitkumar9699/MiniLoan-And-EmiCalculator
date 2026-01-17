@@ -1,66 +1,56 @@
-// components/Navbar.js
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userRole, setUserRole] = useState(null);
 
-  const navLinks = [
-    { path: '/', label: 'Home' },
-    { path: '/calculate', label: 'Calculate EMI' },
-    { path: '/login', label: 'Login' },
-    { path: '/register', label: 'Register' },
-    { path: '/contact', label: 'Contact Us' },
-  ];
+  useEffect(() => {
+    const token = localStorage.getItem('jwt_token');
+    const role = localStorage.getItem('user_role');
+    setIsLoggedIn(!!token);
+    setUserRole(role);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('jwt_token');
+    localStorage.removeItem('user_role');
+    localStorage.removeItem('user_email');
+    localStorage.removeItem('user_name');
+    setIsLoggedIn(false);
+    navigate('/');
+  };
 
   return (
     <nav className="navbar">
-      <div className="nav-container">
-        <div className="nav-brand">
-          <span className="brand-icon">💰</span>
-          <span className="brand-text">MiniLoan<span className="brand-highlight">Pro</span></span>
-        </div>
-
-        {/* Desktop Navigation */}
-        <div className="nav-links">
-          {navLinks.map((link) => (
-            <NavLink
-              key={link.path}
-              to={link.path}
-              className={({ isActive }) => 
-                `nav-link ${isActive ? 'active' : ''}`
-              }
-            >
-              {link.label}
-            </NavLink>
-          ))}
-        </div>
-
-        {/* Mobile Menu Button */}
-        <button 
-          className="menu-toggle"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          <span className={`hamburger ${isMenuOpen ? 'open' : ''}`}></span>
-        </button>
-
-        {/* Mobile Navigation */}
-        <div className={`mobile-nav ${isMenuOpen ? 'open' : ''}`}>
-          {navLinks.map((link) => (
-            <NavLink
-              key={link.path}
-              to={link.path}
-              className={({ isActive }) => 
-                `mobile-nav-link ${isActive ? 'active' : ''}`
-              }
-              onClick={() => setIsMenuOpen(false)}
-            >
-              {link.label}
-            </NavLink>
-          ))}
-        </div>
+      <div className="navbar-brand">
+        <h2 onClick={() => navigate('/')}>Mini Loan & EMI Calculator</h2>
+      </div>
+      <div className="navbar-links">
+        <button onClick={() => navigate('/')}>Home</button>
+        {!isLoggedIn ? (
+          <>
+            <button onClick={() => navigate('/login')}>Login</button>
+            <button onClick={() => navigate('/register')}>Register</button>
+          </>
+        ) : (
+          <>
+            <button onClick={() => navigate('/dashboard')}>Dashboard</button>
+            {userRole === 'ROLE_USER' && (
+              <>
+                <button onClick={() => navigate('/apply-loan')}>Apply Loan</button>
+                <button onClick={() => navigate('/history')}>History</button>
+                <button onClick={() => navigate('/profile')}>Profile</button>
+              </>
+            )}
+            {userRole === 'ROLE_ADMIN' && (
+              <button onClick={() => navigate('/admin')}>Admin Panel</button>
+            )}
+            <button onClick={handleLogout} className="logout-btn">Logout</button>
+          </>
+        )}
       </div>
     </nav>
   );

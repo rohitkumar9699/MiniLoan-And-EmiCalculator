@@ -1,79 +1,30 @@
-package com.example.MiniLoanAndEMICalculator_Backend.MiniLoan.entity;
+package com.example.MiniLoanAndEMICalculator_Backend.MiniLoan.dto;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "loans")
-public class Loan {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class LoanResponse {
     private Long id;
-
-    @Column(nullable = false)
     private Long userId;
-
-    @Column(nullable = false)
     private Double loanAmount;
-
-    @Column(nullable = false)
     private Double interestRate;
-
-    @Column(nullable = false)
-    private Integer tenure; // in months
-
-    @Column(nullable = false)
+    private Integer tenure;
     private Double emi;
-
-    @Column(nullable = false)
     private Double totalPayable;
-
-    @Column(nullable = false)
-    private Double paidAmount = 0.0;
-
-    @Column(nullable = false)
+    private Double paidAmount;
     private Double remainingAmount;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private LoanStatus status = LoanStatus.PENDING;
-
-    @Column
+    private String status;
     private LocalDateTime startDate;
-
-    @Column
     private LocalDateTime endDate;
+    private LocalDateTime createdAt;
 
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
-
-    @Column
-    private LocalDateTime updatedAt = LocalDateTime.now();
-
-    @PreUpdate
-    public void preUpdate() {
-        this.updatedAt = LocalDateTime.now();
-    }
-
-    public enum LoanStatus {
-        PENDING, APPROVED, REJECTED, COMPLETED
-    }
-
-    public Loan() {}
-
-    public Loan(Long userId, Double loanAmount, Double interestRate, Integer tenure) {
-        this.userId = userId;
-        this.loanAmount = loanAmount;
-        this.interestRate = interestRate;
-        this.tenure = tenure;
-        this.remainingAmount = loanAmount;
-    }
+    // Constructors
+    public LoanResponse() {}
 
     // Getters and Setters
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -81,6 +32,7 @@ public class Loan {
     public Long getUserId() {
         return userId;
     }
+
     public void setUserId(Long userId) {
         this.userId = userId;
     }
@@ -88,6 +40,7 @@ public class Loan {
     public Double getLoanAmount() {
         return loanAmount;
     }
+
     public void setLoanAmount(Double loanAmount) {
         this.loanAmount = loanAmount;
     }
@@ -95,6 +48,7 @@ public class Loan {
     public Double getInterestRate() {
         return interestRate;
     }
+
     public void setInterestRate(Double interestRate) {
         this.interestRate = interestRate;
     }
@@ -102,6 +56,7 @@ public class Loan {
     public Integer getTenure() {
         return tenure;
     }
+
     public void setTenure(Integer tenure) {
         this.tenure = tenure;
     }
@@ -109,6 +64,7 @@ public class Loan {
     public Double getEmi() {
         return emi;
     }
+
     public void setEmi(Double emi) {
         this.emi = emi;
     }
@@ -116,6 +72,7 @@ public class Loan {
     public Double getTotalPayable() {
         return totalPayable;
     }
+
     public void setTotalPayable(Double totalPayable) {
         this.totalPayable = totalPayable;
     }
@@ -123,6 +80,7 @@ public class Loan {
     public Double getPaidAmount() {
         return paidAmount;
     }
+
     public void setPaidAmount(Double paidAmount) {
         this.paidAmount = paidAmount;
     }
@@ -130,20 +88,23 @@ public class Loan {
     public Double getRemainingAmount() {
         return remainingAmount;
     }
+
     public void setRemainingAmount(Double remainingAmount) {
         this.remainingAmount = remainingAmount;
     }
 
-    public LoanStatus getStatus() {
+    public String getStatus() {
         return status;
     }
-    public void setStatus(LoanStatus status) {
+
+    public void setStatus(String status) {
         this.status = status;
     }
 
     public LocalDateTime getStartDate() {
         return startDate;
     }
+
     public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
@@ -151,6 +112,7 @@ public class Loan {
     public LocalDateTime getEndDate() {
         return endDate;
     }
+
     public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
@@ -158,14 +120,8 @@ public class Loan {
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
     }
 }

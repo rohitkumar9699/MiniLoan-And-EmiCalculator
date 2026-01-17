@@ -1,31 +1,27 @@
 package com.example.MiniLoanAndEMICalculator_Backend.security;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
 import java.util.function.Function;
+import java.nio.charset.StandardCharsets;
 
 @Component
 public class JwtUtil {
 
-    // Default secret added so that app does not crash if property is missing.
-    // For production: set jwt.secret in application.properties and change this default.
-    @Value("${jwt.secret:THIS_IS_A_DEVELOPMENT_ONLY_JWT_SECRET_KEY_32_CHARS_MIN}")
+    @Value("${app.jwt.secret:rohitkumarqwertyuiopqwertyuiopqwertyuiop123456789}")
     private String secret;
 
-    // 1 hour default if not provided
-    @Value("${jwt.expiration-ms:3600000}")
+    @Value("${app.jwt.expiration:86400000}")
     private long expirationMs;
 
     private Key getSigningKey() {
-        // secret must be at least 32 characters for HS256
-        return Keys.hmacShaKeyFor(secret.getBytes());
+        return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
     public String extractUsername(String token) {
@@ -62,12 +58,32 @@ public class JwtUtil {
                 .setSubject(username)
                 .setIssuedAt(now)
                 .setExpiration(expiry)
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .signWith(getSigningKey(), SignatureAlgorithm.HS512)
                 .compact();
     }
 
+    public String generateToken(Authentication authentication) {
+        return generateToken(authentication.getName());
+    }
+
     public boolean validateToken(String token, String username) {
-        final String extractedUsername = extractUsername(token);
-        return (extractedUsername.equals(username) && !isTokenExpired(token));
+        try {
+            final String extractedUsername = extractUsername(token);
+            return (extractedUsername.equals(username) && !isTokenExpired(token));
+        } catch (JwtException | IllegalArgumentException e) {
+            return false;
+        }
+    }
+
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(getSigningKey())
+                    .build()
+                    .parseClaimsJws(token);
+            return true;
+        } catch (JwtException | IllegalArgumentException e) {
+            return false;
+        }
     }
 }

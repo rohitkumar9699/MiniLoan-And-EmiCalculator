@@ -1,54 +1,55 @@
 package com.example.MiniLoanAndEMICalculator_Backend.user.controller;
 
-import com.example.MiniLoanAndEMICalculator_Backend.security.JwtUtil;
-import com.example.MiniLoanAndEMICalculator_Backend.user.dto.LoginRequest;
-import com.example.MiniLoanAndEMICalculator_Backend.user.dto.LoginResponse;
-import com.example.MiniLoanAndEMICalculator_Backend.user.dto.SignupRequest;
+import com.example.MiniLoanAndEMICalculator_Backend.user.dto.*;
 import com.example.MiniLoanAndEMICalculator_Backend.user.entity.User;
 import com.example.MiniLoanAndEMICalculator_Backend.user.service.UserService;
-import jakarta.validation.Valid;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
+import com.example.MiniLoanAndEMICalculator_Backend.security.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/user")
+@CrossOrigin(origins = "${app.cors.allowed-origins:http://localhost:3000}")
 public class UserController {
+    @Autowired
+    private UserService userService;
 
-    private final UserService userService;
-    private final JwtUtil jwtUtil;
-    private final AuthenticationManager authenticationManager;
+    @Autowired
+    private JwtUtil jwtUtil;
 
-    public UserController(UserService userService,
-                          JwtUtil jwtUtil,
-                          AuthenticationManager authenticationManager) {
-        this.userService = userService;
-        this.jwtUtil = jwtUtil;
-        this.authenticationManager = authenticationManager;
-    }
-
-    @PostMapping("/signup")
-    public User signup(@Valid @RequestBody SignupRequest signupRequest) {
-        return userService.registerUser(signupRequest);
-    }
-
-    @PostMapping("/login")
-    public LoginResponse login(@Valid @RequestBody LoginRequest loginRequest) {
+    @GetMapping("/profile")
+    public ResponseEntity<?> getProfile(@RequestHeader("Authorization") String token) {
         try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            loginRequest.getEmail(),
-                            loginRequest.getPassword()
-                    )
-            );
-        } catch (AuthenticationException e) {
-            throw new RuntimeException("Invalid Credentials");
+            String email = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+            User user = userService.getUserByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+            return ResponseEntity.ok(user);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
+    }
 
-        User user = userService.getUserByEmail(loginRequest.getEmail());
-        String token = jwtUtil.generateToken(user.getEmail());
+    @PutMapping("/update-profile")
+    public ResponseEntity<?> updateProfile(@RequestHeader("Authorization") String token, @RequestBody UpdateProfileRequest request) {
+        try {
+            String email = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+            User user = userService.getUserByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+            userService.updateProfile(user.getId(), request);
+            return ResponseEntity.ok("Profile updated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
+    }
 
-        return new LoginResponse(token);
+    @PutMapping("/change-password")
+    public ResponseEntity<?> changePassword(@RequestHeader("Authorization") String token, @RequestBody ChangePasswordRequest request) {
+        try {
+            String email = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+            User user = userService.getUserByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+            userService.changePassword(user.getId(), request);
+            return ResponseEntity.ok("Password changed successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
     }
 }

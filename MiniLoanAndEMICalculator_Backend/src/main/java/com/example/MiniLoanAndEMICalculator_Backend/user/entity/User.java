@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -13,32 +13,59 @@ import java.util.Collections;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)   // Auto-increment ID
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false, unique = true)              // Email must be unique
-    private String email;
 
     @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false, unique = true)
+    private String email;
 
     @Column(nullable = false)
     private String password;
 
     @Column(nullable = false)
-    private String role;  // e.g. ROLE_USER or ROLE_ADMIN
+    private String occupation;
+
+    @Column(nullable = false)
+    private Double monthlyIncome;
+
+    @Column(unique = true, nullable = false, length = 12)
+    private String aadhaarNumber;
+
+    @Column(unique = true, nullable = false)
+    private String panNumber;
+
+    @Column(nullable = false)
+    private String role = "ROLE_USER";
+
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Column
+    private LocalDateTime updatedAt = LocalDateTime.now();
 
     public User() {}
 
-    public User(String email, String name, String password, String role) {
-        this.email = email;
+    public User(String name, String email, String password, String occupation, Double monthlyIncome,
+                String aadhaarNumber, String panNumber, String role) {
         this.name = name;
+        this.email = email;
         this.password = password;
+        this.occupation = occupation;
+        this.monthlyIncome = monthlyIncome;
+        this.aadhaarNumber = aadhaarNumber;
+        this.panNumber = panNumber;
         this.role = role;
     }
 
-    // ===== Getters & Setters =====
+    @PreUpdate
+    public void preUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -47,20 +74,20 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
@@ -72,6 +99,38 @@ public class User implements UserDetails {
         this.password = password;
     }
 
+    public String getOccupation() {
+        return occupation;
+    }
+
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
+    }
+
+    public Double getMonthlyIncome() {
+        return monthlyIncome;
+    }
+
+    public void setMonthlyIncome(Double monthlyIncome) {
+        this.monthlyIncome = monthlyIncome;
+    }
+
+    public String getAadhaarNumber() {
+        return aadhaarNumber;
+    }
+
+    public void setAadhaarNumber(String aadhaarNumber) {
+        this.aadhaarNumber = aadhaarNumber;
+    }
+
+    public String getPanNumber() {
+        return panNumber;
+    }
+
+    public void setPanNumber(String panNumber) {
+        this.panNumber = panNumber;
+    }
+
     public String getRole() {
         return role;
     }
@@ -80,8 +139,23 @@ public class User implements UserDetails {
         this.role = role;
     }
 
-    // ===== UserDetails methods =====
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
 
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    // UserDetails methods
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(new SimpleGrantedAuthority(role));
@@ -89,7 +163,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email; // email used as login username
+        return email;
     }
 
     @Override

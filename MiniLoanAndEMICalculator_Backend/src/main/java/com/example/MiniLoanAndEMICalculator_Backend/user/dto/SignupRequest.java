@@ -1,8 +1,6 @@
 package com.example.MiniLoanAndEMICalculator_Backend.user.dto;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 public class SignupRequest {
 
@@ -18,7 +16,19 @@ public class SignupRequest {
     private String password;
 
     @NotBlank
-    private String role; // ROLE_USER / ROLE_ADMIN
+    private String occupation;
+
+    @NotNull
+    @Min(0)
+    private Double monthlyIncome;
+
+    @NotBlank
+    @Pattern(regexp = "\\d{12}", message = "Aadhaar must be 12 digits")
+    private String aadhaarNumber;
+
+    @NotBlank
+    @Pattern(regexp = "[A-Z]{5}[0-9]{4}[A-Z]{1}", message = "Invalid PAN format")
+    private String panNumber;
 
     public SignupRequest() {
     }
@@ -47,11 +57,35 @@ public class SignupRequest {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
+    public String getOccupation() {
+        return occupation;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
+    }
+
+    public Double getMonthlyIncome() {
+        return monthlyIncome;
+    }
+
+    public void setMonthlyIncome(Double monthlyIncome) {
+        this.monthlyIncome = monthlyIncome;
+    }
+
+    public String getAadhaarNumber() {
+        return aadhaarNumber;
+    }
+
+    public void setAadhaarNumber(String aadhaarNumber) {
+        this.aadhaarNumber = aadhaarNumber;
+    }
+
+    public String getPanNumber() {
+        return panNumber;
+    }
+
+    public void setPanNumber(String panNumber) {
+        this.panNumber = panNumber;
     }
 }
