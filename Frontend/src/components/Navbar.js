@@ -55,6 +55,7 @@ const Navbar = ({ onAuthChange }) => {
           <>
             <button className="nav-link" onClick={() => navigate('/dashboard')}>Dashboard</button>
             <button className="nav-link" onClick={() => navigate('/apply')}>Apply Loan</button>
+            <button className="nav-link" onClick={() => navigate('/payment')}>Pay Loan</button>
             <button className="nav-link" onClick={() => navigate('/history')}>History</button>
             <button className="nav-link" onClick={() => navigate('/profile')}>Profile</button>
             {userRole === 'ROLE_ADMIN' && (

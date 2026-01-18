@@ -12,6 +12,7 @@ import AdminLogin from './pages/AdminLogin';
 import AdminRegister from './pages/AdminRegister';
 import Dashboard from './pages/Dashboard';
 import ApplyLoan from './pages/ApplyLoan';
+import Payment from './pages/Payment';
 import Profile from './pages/Profile';
 import LoanHistory from './pages/LoanHistory';
 import Admin from './pages/Admin';
@@ -57,6 +58,9 @@ function App() {
             } />
             <Route path="/apply" element={
               <ProtectedRoute requiredRole="ROLE_USER"><ApplyLoan /></ProtectedRoute>
+            } />
+            <Route path="/payment" element={
+              <ProtectedRoute requiredRole="ROLE_USER"><Payment /></ProtectedRoute>
             } />
             <Route path="/profile" element={
               <ProtectedRoute requiredRole="ROLE_USER"><Profile /></ProtectedRoute>

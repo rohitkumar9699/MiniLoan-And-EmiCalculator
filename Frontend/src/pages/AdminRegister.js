@@ -9,10 +9,10 @@ function AdminRegister() {
     email: '',
     password: '',
     confirmPassword: '',
-    aadhaarNumber: '',
-    panNumber: '',
-    occupation: '',
-    monthlyIncome: '',
+    aadhaarNumber: '000000000000',
+    panNumber: 'ABCDE1234F',
+    occupation: 'Administrator',
+    monthlyIncome: '1',
   });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);

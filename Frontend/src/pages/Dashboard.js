@@ -99,7 +99,7 @@ const Dashboard = () => {
           <div className="action-buttons">
             <button onClick={() => navigate('/history')} className="btn-secondary">📜 View History</button>
             {loan.status === 'APPROVED' && (
-              <button onClick={() => navigate('/loan/pay')} className="btn-primary">💳 Pay EMI</button>
+              <button onClick={() => navigate('/payment')} className="btn-primary">💳 Pay EMI</button>
             )}
           </div>
         </div>
