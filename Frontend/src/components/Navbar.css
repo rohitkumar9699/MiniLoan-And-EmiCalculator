@@ -91,9 +91,9 @@
 
 .logout-btn {
   background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-  color: white !important;
+  color: rgb(245, 3, 3) !important;
   padding: 0.6rem 1.2rem !important;
-  border-radius: 8px !important;
+  border-radius: 8px ;
   font-weight: 600 !important;
   transition: all 0.3s ease !important;
   margin-left: 0.5rem;
@@ -102,7 +102,7 @@
 .logout-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-  background-color: #dc2626 !important;
+  background-color: #080000 !important;
 }
 
 .user-badge {
