@@ -51,16 +51,24 @@ const Navbar = ({ onAuthChange }) => {
             <button onClick={() => navigate('/login')}>Login</button>
             <button onClick={() => navigate('/register')}>Register</button>
           </>
+        ) : userRole === 'ROLE_ADMIN' ? (
+          // Admin Navigation
+          <>
+            <button className="nav-link" onClick={() => navigate('/admin?status=pending')}>Pending</button>
+            <button className="nav-link" onClick={() => navigate('/admin?status=approved')}>Approved</button>
+            <button className="nav-link" onClick={() => navigate('/admin?status=rejected')}>Rejected</button>
+            <span className="user-badge">👤 {userName}</span>
+            <button onClick={handleLogout} className="logout-btn">Logout</button>
+          </>
         ) : (
+          // User Navigation
           <>
             <button className="nav-link" onClick={() => navigate('/dashboard')}>Dashboard</button>
             <button className="nav-link" onClick={() => navigate('/apply')}>Apply Loan</button>
             <button className="nav-link" onClick={() => navigate('/payment')}>Pay Loan</button>
             <button className="nav-link" onClick={() => navigate('/history')}>History</button>
             <button className="nav-link" onClick={() => navigate('/profile')}>Profile</button>
-            {userRole === 'ROLE_ADMIN' && (
-              <button className="nav-link" onClick={() => navigate('/admin')}>Admin Panel</button>
-            )}
+            <span className="user-badge">👤 {userName}</span>
             <button onClick={handleLogout} className="logout-btn">Logout</button>
           </>
         )}

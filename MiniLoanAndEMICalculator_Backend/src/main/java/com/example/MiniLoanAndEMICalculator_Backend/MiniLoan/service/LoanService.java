@@ -58,7 +58,16 @@ public class LoanService {
                 .orElseThrow(() -> new RuntimeException("Loan not found"));
         loan.setStatus(Loan.LoanStatus.APPROVED);
         loan.setStartDate(LocalDateTime.now());
-        return loanRepository.save(loan);
+        Loan approvedLoan = loanRepository.save(loan);
+        
+        // Auto-reject all other pending loans for this user
+        List<Loan> otherPendingLoans = loanRepository.findAllByUserIdAndStatus(loan.getUserId(), Loan.LoanStatus.PENDING);
+        for (Loan pendingLoan : otherPendingLoans) {
+            pendingLoan.setStatus(Loan.LoanStatus.REJECTED);
+            loanRepository.save(pendingLoan);
+        }
+        
+        return approvedLoan;
     }
 
     public Loan rejectLoan(Long loanId) {
@@ -79,6 +88,14 @@ public class LoanService {
 
     public List<Loan> getPendingLoans() {
         return loanRepository.findByStatus(Loan.LoanStatus.PENDING);
+    }
+
+    public List<Loan> getApprovedLoans() {
+        return loanRepository.findByStatus(Loan.LoanStatus.APPROVED);
+    }
+
+    public List<Loan> getRejectedLoans() {
+        return loanRepository.findByStatus(Loan.LoanStatus.REJECTED);
     }
 
     public void payEmi(Long loanId, Double amount) {

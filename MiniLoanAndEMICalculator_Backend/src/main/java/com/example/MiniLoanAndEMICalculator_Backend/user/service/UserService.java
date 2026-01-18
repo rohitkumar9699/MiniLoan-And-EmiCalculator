@@ -53,7 +53,6 @@ public class UserService implements UserDetailsService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         User savedUser = userRepository.save(user);
-        emailService.sendPasswordEmail(user.getEmail(), request.getPassword());
         return savedUser;
     }
 
@@ -112,7 +111,6 @@ public class UserService implements UserDetailsService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         User savedUser = userRepository.save(user);
-        emailService.sendPasswordEmail(user.getEmail(), request.getPassword());
         return savedUser;
     }
 

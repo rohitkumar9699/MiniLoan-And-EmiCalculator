@@ -105,6 +105,18 @@
   background-color: #dc2626 !important;
 }
 
+.user-badge {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+  margin: 0 0.5rem;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+}
+
 .menu-toggle {
   display: none;
   background: none;

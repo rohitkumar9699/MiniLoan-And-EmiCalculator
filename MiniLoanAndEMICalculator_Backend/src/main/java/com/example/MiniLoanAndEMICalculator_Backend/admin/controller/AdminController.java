@@ -29,6 +29,26 @@ public class AdminController {
         }
     }
 
+    @GetMapping("/loans/approved")
+    public ResponseEntity<?> getApprovedLoans() {
+        try {
+            List<Loan> loans = loanService.getApprovedLoans();
+            return ResponseEntity.ok(loans);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/loans/rejected")
+    public ResponseEntity<?> getRejectedLoans() {
+        try {
+            List<Loan> loans = loanService.getRejectedLoans();
+            return ResponseEntity.ok(loans);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
+    }
+
     @PostMapping("/loan/approve/{loanId}")
     public ResponseEntity<?> approveLoan(@PathVariable Long loanId) {
         try {
