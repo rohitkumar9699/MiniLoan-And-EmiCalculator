@@ -9,13 +9,11 @@ const Footer = () => {
     { path: '/calculate', label: 'EMI Calculator' },
     { path: '/login', label: 'Login' },
     { path: '/register', label: 'Register' },
-    { path: '/contact', label: 'Contact Us' },
   ];
 
   const loanRules = [
     { label: 'Loan Amount', value: '₹1,000 - ₹50,000' },
-    { label: 'Loan Duration', value: '1 - 24 months' },
-    { label: 'Interest Rate', value: '8% per annum (Fixed)' },
+
     { label: 'Processing Time', value: '24 hours' },
   ];
 
@@ -126,7 +124,7 @@ const Footer = () => {
         </div>
 
         {/* Footer Bottom */}
-        <div className="footer-bottom">
+        {/* <div className="footer-bottom">
           <div className="copyright">
             © {new Date().getFullYear()} MiniLoanPro. All rights reserved.
           </div>
@@ -136,7 +134,7 @@ const Footer = () => {
             <Link to="/terms" className="legal-link">Terms of Service</Link>
             <Link to="/disclaimer" className="legal-link">Disclaimer</Link>
           </div>
-        </div>
+        </div> */}
       </div>
     </footer>
   );
