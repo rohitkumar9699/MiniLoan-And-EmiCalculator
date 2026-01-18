@@ -8,7 +8,6 @@ import Calculator from './pages/Calculator';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ResetPassword from './pages/ResetPassword';
-// import AdminLogin from './pages/AdminLogin';
 import AdminRegister from './pages/AdminRegister';
 import Dashboard from './pages/Dashboard';
 import ApplyLoan from './pages/ApplyLoan';
@@ -16,7 +15,6 @@ import Payment from './pages/Payment';
 import Profile from './pages/Profile';
 import LoanHistory from './pages/LoanHistory';
 import Admin from './pages/Admin';
-// import Contact from './pages/Contact';
 import Footer from './components/Footer';
 import './App.css';
 
@@ -45,14 +43,14 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/calculate" element={<Calculator />} />
-            <Route path="/login" element={<Login />} />
+
+            {/* 🔥 pass onAuthChange */}
+            <Route path="/login" element={<Login onAuthChange={setIsLoggedIn} />} />
+
             <Route path="/register" element={<Register />} />
             <Route path="/reset-password" element={<ResetPassword />} />
-            {/* <Route path="/admin-login" element={<AdminLogin />} /> */}
             <Route path="/admin-register" element={<AdminRegister />} />
-            {/* <Route path="/contact" element={<Contact />} /> */}
-            
-            {/* Protected User Routes */}
+
             <Route path="/dashboard" element={
               <ProtectedRoute requiredRole="ROLE_USER"><Dashboard /></ProtectedRoute>
             } />
@@ -68,8 +66,6 @@ function App() {
             <Route path="/history" element={
               <ProtectedRoute requiredRole="ROLE_USER"><LoanHistory /></ProtectedRoute>
             } />
-            
-            {/* Protected Admin Routes */}
             <Route path="/admin" element={
               <ProtectedRoute requiredRole="ROLE_ADMIN"><Admin /></ProtectedRoute>
             } />

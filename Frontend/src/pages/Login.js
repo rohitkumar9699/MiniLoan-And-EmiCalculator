@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { authAPI } from '../services/api';
 import './Auth.css';
 
-const Login = () => {
+const Login = ({ onAuthChange }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
@@ -50,6 +50,9 @@ const Login = () => {
         localStorage.setItem('user_name', name);
         localStorage.setItem('user_role', role);
         localStorage.setItem('user_email', formData.email);
+        // 🔥 notify App + Navbar
+        onAuthChange(true); 
+        window.dispatchEvent(new Event('auth-change'));
 
         setSuccessMessage('Login successful! Redirecting to dashboard...');
         
