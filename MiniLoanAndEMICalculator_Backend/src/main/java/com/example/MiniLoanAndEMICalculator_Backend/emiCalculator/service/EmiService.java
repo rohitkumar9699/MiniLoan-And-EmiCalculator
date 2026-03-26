@@ -11,8 +11,8 @@ public class EmiService {
     private static final double MAX_AMOUNT = 50000.0;
     private static final int MIN_MONTHS = 1;
     private static final int MAX_MONTHS = 24;
-    private static final double MAX_RATE = 10.0; // %
-    private static final double MIN_RATE = 3.0;  // %
+    private static final double MAX_RATE = 7.0; // %
+    private static final double MIN_RATE = 2.0;  // %
 
     public EmiResponse calculateEmi(EmiRequest request) {
         double amount = request.getAmount();
@@ -29,7 +29,7 @@ public class EmiService {
         // 2️⃣ Convert to monthly rate (decimal)
         double monthlyRate = monthlyRates / 100.0;
 
-        // 3️⃣ EMI Formula: P * r * (1+r)^n / ((1+r)^n - 1)
+
         double emi;
         double totalPayment;
         double totalInterest;
@@ -39,10 +39,15 @@ public class EmiService {
             totalPayment = amount;
             totalInterest = 0;
         } else {
-            double numerator = monthlyRate * Math.pow(1 + monthlyRate, months);
-            double denominator = Math.pow(1 + monthlyRate, months) - 1;
-            emi = amount * (numerator / denominator);
-            totalPayment = emi * months;
+//            double numerator = monthlyRate * Math.pow(1 + monthlyRate, months);
+//            double denominator = Math.pow(1 + monthlyRate, months) - 1;
+//            emi = amount * (numerator / denominator);
+//            totalPayment = emi * months;
+//            totalInterest = totalPayment - amount;
+
+
+            totalPayment = amount + amount*monthlyRates*months*0.01;
+            emi = totalPayment/months;
             totalInterest = totalPayment - amount;
         }
 
@@ -93,7 +98,7 @@ public class EmiService {
         return rate;
     }
 
-    private double round(double value, int places) {
+    protected double round(double value, int places) {
         if (places < 0) return value;
         double factor = Math.pow(10, places);
         return Math.round(value * factor) / factor;

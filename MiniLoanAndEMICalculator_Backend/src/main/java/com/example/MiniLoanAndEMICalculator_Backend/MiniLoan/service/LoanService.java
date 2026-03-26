@@ -4,9 +4,12 @@ import com.example.MiniLoanAndEMICalculator_Backend.MiniLoan.entity.Loan;
 import com.example.MiniLoanAndEMICalculator_Backend.MiniLoan.entity.Payment;
 import com.example.MiniLoanAndEMICalculator_Backend.MiniLoan.repository.LoanRepository;
 import com.example.MiniLoanAndEMICalculator_Backend.MiniLoan.repository.PaymentRepository;
+import com.example.MiniLoanAndEMICalculator_Backend.emiCalculator.service.EmiService;
 import com.example.MiniLoanAndEMICalculator_Backend.user.entity.User;
 import com.example.MiniLoanAndEMICalculator_Backend.user.service.UserService;
 import com.example.MiniLoanAndEMICalculator_Backend.util.EmiCalculator;
+import com.example.MiniLoanAndEMICalculator_Backend.emiCalculator.service.EmiService;
+import org.aspectj.lang.annotation.Around;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
@@ -14,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class LoanService {
+public class LoanService  extends  EmiService{
     @Autowired
     private LoanRepository loanRepository;
 
@@ -34,8 +37,9 @@ public class LoanService {
         }
 
         // Calculate interest rate based on income
-        Double interestRate = EmiCalculator.getInterestRate(user.getMonthlyIncome());
-        
+//        Double interestRate = EmiCalculator.getInterestRate(user.getMonthlyIncome())
+        Double interestRate = calculateRate(loanAmount, tenure);
+        interestRate = round(interestRate,2);
         // Calculate EMI
         Double emi = EmiCalculator.calculateEmi(loanAmount, interestRate, tenure);
         Double totalPayable = EmiCalculator.calculateTotalPayable(emi, tenure);
