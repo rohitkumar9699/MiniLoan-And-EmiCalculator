@@ -61,7 +61,7 @@ function AdminRegister() {
       });
 
       setSuccessMessage('Admin registered successfully! Redirecting to login...');
-      setTimeout(() => navigate('/admin-login'), 2000);
+      setTimeout(() => navigate('/login'), 500);
     } catch (err) {
       const errorMsg =
         err.response?.data?.message ||
@@ -160,7 +160,7 @@ function AdminRegister() {
 
         <div className="auth-footer">
           <p>Already have admin credentials?</p>
-          <a href="/admin-login">Login here</a>
+          <a href="/login">Login here</a>
         </div>
       </div>
     </div>

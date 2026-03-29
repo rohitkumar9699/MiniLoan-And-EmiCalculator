@@ -22,11 +22,12 @@ function Payment() {
   const fetchCurrentLoan = async () => {
     try {
       setLoading(true);
+      setError('');
       const response = await loanAPI.getCurrentLoan();
       setLoan(response.data);
     } catch (err) {
-      setError('No active loan found or unauthorized access');
-      setLoading(false);
+      setError(err.response?.data?.message || 'No active loan found. Please apply for a loan first.');
+      setLoan(null);
     } finally {
       setLoading(false);
     }
@@ -55,6 +56,11 @@ function Payment() {
   };
 
   const validatePayment = () => {
+    if (!loan) {
+      setValidationError('Loan data not available');
+      return false;
+    }
+
     if (!paymentAmount) {
       setValidationError('Please enter a payment amount');
       return false;
@@ -66,12 +72,12 @@ function Payment() {
       return false;
     }
 
-    if (amount > loan.remainingAmount) {
+    if (loan.remainingAmount && amount > loan.remainingAmount) {
       setValidationError(`Amount cannot exceed remaining balance (₹${loan.remainingAmount?.toFixed(2)})`);
       return false;
     }
 
-    if (paymentType === 'emi' && amount < loan.emi) {
+    if (paymentType === 'emi' && loan.emi && amount < loan.emi) {
       setValidationError(`EMI payment must be at least ₹${loan.emi?.toFixed(2)}`);
       return false;
     }
@@ -85,10 +91,12 @@ function Payment() {
     if (!validatePayment()) return;
 
     setIsProcessing(true);
+    setValidationError('');
+    
     try {
       await loanAPI.payEmi({
         amount: parseFloat(paymentAmount),
-        loanId: loan.id,
+        loanId: loan?.id,
       });
 
       setSuccessMessage(`Payment of ₹${parseFloat(paymentAmount).toFixed(2)} successful!`);
@@ -129,18 +137,31 @@ function Payment() {
   };
 
   if (loading) {
-    return <div className="payment-container"><p>Loading loan details...</p></div>;
+    return (
+      <div className="payment-container">
+        <div className="payment-card">
+          <p style={{ textAlign: 'center', color: 'var(--color-gray)', fontSize: 'var(--font-size-lg)' }}>
+            Loading loan details...
+          </p>
+        </div>
+      </div>
+    );
   }
 
-  if (error) {
+  if (error || !loan) {
     return (
       <div className="payment-container">
         <div className="error-box">
           <h2>No Active Loan</h2>
-          <p>{error}</p>
-          <button onClick={() => navigate('/apply')} className="btn-primary">
-            Apply for a Loan
-          </button>
+          <p>{error || 'No active loan found. Please apply for a loan to get started.'}</p>
+          <div style={{ display: 'flex', gap: 'var(--spacing-md)', marginTop: 'var(--spacing-xl)', flexDirection: 'column' }}>
+            <button onClick={() => navigate('/apply')} className="btn-primary">
+              Apply for a Loan
+            </button>
+            <button onClick={() => navigate('/dashboard')} className="btn-secondary">
+              Go Back to Dashboard
+            </button>
+          </div>
         </div>
       </div>
     );
