@@ -1,4 +1,5 @@
 import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 
 const API_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080/api';
 
@@ -40,18 +41,58 @@ export const adminAPI = {
   getAllUsers: () => axios.get(`${API_URL}/admin/users`, getAuthHeader()),
 };
 
-// EMI Calculator Utility
-export const calculateEMI = (principal, annualRate, months) => {
-  const monthlyRate = annualRate / 100 / 12;
-  if (monthlyRate === 0) return principal / months;
-  const numerator = principal * monthlyRate * Math.pow(1 + monthlyRate, months);
-  const denominator = Math.pow(1 + monthlyRate, months) - 1;
-  return Math.round(numerator / denominator * 100) / 100;
-};
 
-export const getInterestRate = (monthlyIncome) => {
-  if (monthlyIncome < 20000) return 15.0;
-  if (monthlyIncome < 50000) return 12.0;
-  if (monthlyIncome < 100000) return 10.0;
-  return 8.0;
+
+const backend_url = process.env.REACT_APP_API_BASE_URL || "http://localhost:8080/api";
+
+// EMI Calculation via Backend API
+export const calculateEMI = async (principal, months) => {
+  try {
+    // 🛑 Guard condition
+    if (!principal || !months || principal <= 0 || months <= 0) {
+      return {
+        emi: 0,
+        totalInterest: 0,
+        totalAmount: 0,
+        interestRate: 0,
+      };
+    }
+
+    const response = await fetch(`${backend_url}/emi/calculate`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        amount: principal,
+        months: months,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(errorText || "Failed to calculate EMI");
+    }
+
+    const data = await response.json();
+
+    // ✅ Return normalized response
+    return {
+      emi: data.monthlyEmi,
+      totalInterest: data.totalInterest,
+      totalAmount: data.totalPayment,
+      interestRate: data.monthlyRates,
+    };
+  } catch (error) {
+    console.error("EMI API Error:", error);
+
+    // fallback response
+    return {
+      emi: 0,
+      totalInterest: 0,
+      totalAmount: 0,
+      interestRate: 0,
+      error: error.message,
+    };
+  }
 };

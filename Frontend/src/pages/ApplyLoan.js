@@ -1,45 +1,77 @@
-import React, { useState } from 'react';
-import { loanAPI, calculateEMI, getInterestRate } from '../services/api';
+import React, { useState, useEffect } from 'react';
+import { loanAPI, calculateEMI } from '../services/api';
 import { useNavigate } from 'react-router-dom';
 import './ApplyLoan.css';
 
 function ApplyLoan() {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({ loanAmount: 10000, tenure: 12 });
-  const [emi, setEmi] = useState(0);
-  const [interestRate, setInterestRate] = useState(0);
+
+  const [formData, setFormData] = useState({
+    loanAmount: 10000,
+    tenure: 12,
+  });
+
+  const [emiData, setEmiData] = useState({
+    emi: 0,
+    totalAmount: 0,
+    totalInterest: 0,
+    interestRate: 0,
+  });
+
   const [loading, setLoading] = useState(false);
+  const [isCalculating, setIsCalculating] = useState(false);
   const [message, setMessage] = useState('');
 
-  // Get monthly income from profile or estimate
-  const monthlyIncome = parseInt(localStorage.getItem('user_monthly_income') || '30000');
+  // ✅ Call backend API
+  const calculateEMIOnChange = async (amount, months) => {
+    try {
+      setIsCalculating(true);
 
-  const calculateEMIOnChange = (amount, months, income) => {
-    const rate = getInterestRate(income);
-    const calculated = calculateEMI(amount, rate, months);
-    setEmi(calculated);
-    setInterestRate(rate);
+      const result = await calculateEMI(amount, months);
+
+      setEmiData({
+        emi: result.emi,
+        totalAmount: result.totalAmount,
+        totalInterest: result.totalInterest,
+        interestRate: result.interestRate,
+      });
+    } catch (err) {
+      console.error("EMI fetch failed:", err);
+    } finally {
+      setIsCalculating(false);
+    }
   };
 
+  // ✅ Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
     const numValue = parseFloat(value);
-    const newFormData = { ...formData, [name]: numValue };
-    setFormData(newFormData);
-    calculateEMIOnChange(
-      newFormData.loanAmount,
-      newFormData.tenure,
-      monthlyIncome
-    );
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: numValue,
+    }));
   };
 
+  // ✅ Debounced API call (IMPORTANT)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      calculateEMIOnChange(formData.loanAmount, formData.tenure);
+    }, 400);
+
+    return () => clearTimeout(timer);
+  }, [formData]);
+
+  // ✅ Submit loan
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setMessage('');
+
     try {
       await loanAPI.applyLoan(formData);
       setMessage('Loan application submitted successfully! Awaiting admin approval.');
+
       setTimeout(() => navigate('/dashboard'), 2000);
     } catch (err) {
       setMessage('Error: ' + (err.response?.data || 'Failed to apply'));
@@ -48,15 +80,16 @@ function ApplyLoan() {
     }
   };
 
-  React.useEffect(() => {
-    calculateEMIOnChange(formData.loanAmount, formData.tenure, monthlyIncome);
-  }, []);
-
   return (
     <div className="calculator-container">
       <h2>Apply for Loan</h2>
-      {message && <p className={message.includes('Error') ? 'error' : 'success'}>{message}</p>}
-      
+
+      {message && (
+        <p className={message.includes('Error') ? 'error' : 'success'}>
+          {message}
+        </p>
+      )}
+
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Loan Amount: ₹{formData.loanAmount.toLocaleString()}</label>
@@ -88,24 +121,32 @@ function ApplyLoan() {
 
         <div className="result-section">
           <h3>Loan Summary</h3>
-          <div className="result">
-            <div className="result-item">
-              <span>Interest Rate:</span>
-              <strong>{interestRate.toFixed(2)}%</strong>
+
+          {isCalculating ? (
+            <p>Calculating...</p>
+          ) : (
+            <div className="result">
+              <div className="result-item">
+                <span>Interest Rate:</span>
+                <strong>{emiData.interestRate?.toFixed(2)}%</strong>
+              </div>
+
+              <div className="result-item">
+                <span>Monthly EMI:</span>
+                <strong>₹{emiData.emi?.toFixed(2)}</strong>
+              </div>
+
+              <div className="result-item">
+                <span>Total Payable:</span>
+                <strong>₹{emiData.totalAmount?.toFixed(2)}</strong>
+              </div>
+
+              <div className="result-item">
+                <span>Total Interest:</span>
+                <strong>₹{emiData.totalInterest?.toFixed(2)}</strong>
+              </div>
             </div>
-            <div className="result-item">
-              <span>Monthly EMI:</span>
-              <strong>₹{emi.toFixed(2)}</strong>
-            </div>
-            <div className="result-item">
-              <span>Total Payable:</span>
-              <strong>₹{(emi * formData.tenure).toFixed(2)}</strong>
-            </div>
-            <div className="result-item">
-              <span>Total Interest:</span>
-              <strong>₹{((emi * formData.tenure) - formData.loanAmount).toFixed(2)}</strong>
-            </div>
-          </div>
+          )}
         </div>
 
         <button type="submit" disabled={loading} className="submit-btn">
